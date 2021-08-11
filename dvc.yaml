@@ -1,0 +1,31 @@
+stages:
+  get_data:
+    cmd: python get_data.py 
+    outs:
+      - ./raw.csv
+  prprocessing:
+    cmd: python process.py
+    deps:
+      - ./raw.csv
+    outs:
+      - ./processed.csv
+  vectorization:
+    cmd: python vectorize.py 
+    deps:
+      - ./processed.csv
+    outs: 
+      - ./vectorized.parquet
+      - ./vectorized_valid.parquet
+  train_model:
+    cmd: python train.py 
+    deps:
+      - ./vectorized.parquet
+    outs:
+      - ./model.pkl
+  validation_metrics:
+    cmd: python training/validation.py
+    deps:
+      - ./vectorized_valid.parquet
+      - ./model.pkl
+    outs:
+      - ./metrics.txt
