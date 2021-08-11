@@ -1,6 +1,8 @@
 stages:
   get_data:
     cmd: python get_data.py 
+    deps: 
+      - get_data.py 
     outs:
       - ./raw.csv
   prprocessing:
