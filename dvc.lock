@@ -4,55 +4,55 @@ stages:
     cmd: python get_data.py
     deps:
     - path: get_data.py
-      md5: 7dcd90b671d3c33c6c634c53d84e386c
-      size: 264
+      md5: e5b0eada70bc5bb048c5bd8abc7515d4
+      size: 300
     outs:
     - path: ./raw.csv
-      md5: 2b2eaeb1b45c70be8b1d7877111711c8
-      size: 22228492
+      md5: 84afed9a6c170d5303a51881fdfc5bdd
+      size: 4208957
   prprocessing:
     cmd: python process.py
     deps:
     - path: ./raw.csv
-      md5: 2b2eaeb1b45c70be8b1d7877111711c8
-      size: 22228492
+      md5: 84afed9a6c170d5303a51881fdfc5bdd
+      size: 4208957
     outs:
     - path: ./processed.csv
-      md5: 0c2df5f0ead9ae0960dbdc1d5adb5e4c
-      size: 1329473
+      md5: 73d065063d4f28de3111dbef2e3c5e7c
+      size: 1517512
   vectorization:
     cmd: python vectorize.py
     deps:
     - path: ./processed.csv
-      md5: 0c2df5f0ead9ae0960dbdc1d5adb5e4c
-      size: 1329473
+      md5: 73d065063d4f28de3111dbef2e3c5e7c
+      size: 1517512
     outs:
     - path: ./vectorized.parquet
-      md5: b08c19485fef6238dac369502440b8df
-      size: 1021281
+      md5: cc940e87a308ad046cb68d566ca2a0b9
+      size: 1099109
   train_model:
     cmd: python train.py
     deps:
     - path: ./vectorized.parquet
-      md5: b08c19485fef6238dac369502440b8df
-      size: 1021281
+      md5: cc940e87a308ad046cb68d566ca2a0b9
+      size: 1099109
     outs:
     - path: ./clf.pkl
-      md5: 36d6568ae480eac5275185dbcf8480eb
-      size: 1368530
+      md5: d4ba2d442a88e7c2e94daa54d7a20ffe
+      size: 1396178
     - path: ./vectorized_valid.parquet
-      md5: 0071768a4086915191b9406882b71590
-      size: 265468
+      md5: 31e3a0f4d1cbc1f3aae7b68badeb78bb
+      size: 276610
   validation_metrics:
     cmd: python validation.py
     deps:
     - path: ./clf.pkl
-      md5: 36d6568ae480eac5275185dbcf8480eb
-      size: 1368530
+      md5: d4ba2d442a88e7c2e94daa54d7a20ffe
+      size: 1396178
     - path: ./vectorized_valid.parquet
-      md5: 0071768a4086915191b9406882b71590
-      size: 265468
+      md5: 31e3a0f4d1cbc1f3aae7b68badeb78bb
+      size: 276610
     outs:
     - path: ./metrics.txt
-      md5: df6ab374952cb7f6aa34c4f0eed29fcb
-      size: 99
+      md5: 82c239a2704e654519d56fb2869bb6aa
+      size: 100
