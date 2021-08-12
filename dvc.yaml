@@ -17,17 +17,17 @@ stages:
       - ./processed.csv
     outs: 
       - ./vectorized.parquet
-      - ./vectorized_valid.parquet
   train_model:
     cmd: python train.py 
     deps:
       - ./vectorized.parquet
     outs:
-      - ./model.pkl
+      - ./clf.pkl
+      - ./vectorized_valid.parquet
   validation_metrics:
-    cmd: python training/validation.py
+    cmd: python validation.py
     deps:
       - ./vectorized_valid.parquet
-      - ./model.pkl
+      - ./clf.pkl
     outs:
       - ./metrics.txt

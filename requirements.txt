@@ -1,0 +1,7 @@
+fastparquet==0.7.1
+nltk==3.6.2
+numpy==1.21.1
+pyarrow==5.0.0
+sklearn==0.0
+spacy==3.1.1
+spacy-legacy==3.0.8
