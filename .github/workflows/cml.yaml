@@ -31,7 +31,7 @@ jobs:
     needs: [deploy-runner]
     runs-on: [self-hosted, cml-runner]
     container:
-      image: docker://dvcorg/cml:0-dvc1-base1-gpu
+      image: docker://dvcorg/cml:0-dvc1-base1
       options: --gpus all
     steps:
       - uses: actions/checkout@v2
