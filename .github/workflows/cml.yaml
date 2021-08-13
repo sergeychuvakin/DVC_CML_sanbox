@@ -18,7 +18,7 @@ jobs:
           aws-region: us-west-1
         run: |
           cml-runner \
-              --repo https://github.com/sergeychuvakin/DVC_CML_sandbox \
+              --repo https://github.com/sergeychuvakin/DVC_CML_sanbox \
               --token=$PERSONAL_ACCESS_TOKEN \
               --cloud aws \
               --cloud-region us-west-1 \
