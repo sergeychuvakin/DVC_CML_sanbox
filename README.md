@@ -7,6 +7,9 @@ pandas swifter stopwords nltk numpy sklearn spacy pyarrow fastparquet
 *.pkl
 *.parquet
 *.csv
+output.txt
 2) git ignore auto 
 /metrics.txt
+/metrics.json
 3) git dvc.lock
+dvc metrics diff > output.txt

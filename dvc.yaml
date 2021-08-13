@@ -33,5 +33,6 @@ stages:
       - validation.py
       - ./vectorized_valid.parquet
       - ./clf.pkl
-    outs:
-      - ./metrics.json
+    metrics:
+      - metrics.json:
+          cache: false

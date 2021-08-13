@@ -16,43 +16,55 @@ stages:
     - path: ./raw.csv
       md5: 84afed9a6c170d5303a51881fdfc5bdd
       size: 4208957
+    - path: process.py
+      md5: e69aa2620f7874d216fc84921b0358ca
+      size: 997
     outs:
     - path: ./processed.csv
-      md5: 73d065063d4f28de3111dbef2e3c5e7c
-      size: 1517512
+      md5: 5af57676b10f823f13148718bb6705ee
+      size: 1430040
   vectorization:
     cmd: python vectorize.py
     deps:
     - path: ./processed.csv
-      md5: 73d065063d4f28de3111dbef2e3c5e7c
-      size: 1517512
+      md5: 5af57676b10f823f13148718bb6705ee
+      size: 1430040
+    - path: vectorize.py
+      md5: 25f440315ae5a7ee4081569b8bf62f7b
+      size: 575
     outs:
     - path: ./vectorized.parquet
-      md5: cc940e87a308ad046cb68d566ca2a0b9
-      size: 1099109
+      md5: 0329d8046114a9499c6f858d0c773584
+      size: 1052526
   train_model:
     cmd: python train.py
     deps:
     - path: ./vectorized.parquet
-      md5: cc940e87a308ad046cb68d566ca2a0b9
-      size: 1099109
+      md5: 0329d8046114a9499c6f858d0c773584
+      size: 1052526
+    - path: train.py
+      md5: cd36140965930b52e57815f1089d45c4
+      size: 600
     outs:
     - path: ./clf.pkl
-      md5: d4ba2d442a88e7c2e94daa54d7a20ffe
-      size: 1396178
+      md5: cd6290639f9fc9daabd70da04a832ff2
+      size: 198242
     - path: ./vectorized_valid.parquet
-      md5: 31e3a0f4d1cbc1f3aae7b68badeb78bb
-      size: 276610
+      md5: 83fe45e65374a5a5caf9e117191d407c
+      size: 258620
   validation_metrics:
     cmd: python validation.py
     deps:
     - path: ./clf.pkl
-      md5: d4ba2d442a88e7c2e94daa54d7a20ffe
-      size: 1396178
+      md5: cd6290639f9fc9daabd70da04a832ff2
+      size: 198242
     - path: ./vectorized_valid.parquet
-      md5: 31e3a0f4d1cbc1f3aae7b68badeb78bb
-      size: 276610
+      md5: 83fe45e65374a5a5caf9e117191d407c
+      size: 258620
+    - path: validation.py
+      md5: f42cb28c1b5de9c37f9017d4022c9b9b
+      size: 652
     outs:
-    - path: ./metrics.txt
-      md5: 82c239a2704e654519d56fb2869bb6aa
-      size: 100
+    - path: metrics.json
+      md5: 181fb5860e8f0a35e22055adbbd2e91d
+      size: 107

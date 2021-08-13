@@ -18,8 +18,9 @@ y_pred = clf.predict(np.stack(df.texts))
 with open("metrics.json", "w") as f:
     json.dump(
         {
-        "f1_score (macro)": f1_score(df.labels, y_pred, average='macro'), 
-        "f1_score (micro)": f1_score(df.labels, y_pred, average='micro'),
-        "f1_score (weighted)": f1_score(df.labels, y_pred, average='weighted')
-        }
-        )
+            "f1_score (macro)": f1_score(df.labels, y_pred, average="macro"),
+            "f1_score (micro)": f1_score(df.labels, y_pred, average="micro"),
+            "f1_score (weighted)": f1_score(df.labels, y_pred, average="weighted"),
+        },
+        f,
+    )

@@ -14,7 +14,7 @@ df = pd.read_parquet(config.TRAIN_VECTORIZED)
 
 X_train, X_test, y_train, y_test = train_test_split(np.stack(df.texts), df.label)
 
-clf = RandomForestClassifier(max_depth=10, random_state=0)
+clf = RandomForestClassifier(max_depth=2, random_state=0)
 clf.fit(X_train, y_train)
 
 with open("clf.pkl", "wb") as f:

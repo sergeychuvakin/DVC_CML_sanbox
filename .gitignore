@@ -133,3 +133,5 @@ dmypy.json
 *.pkl
 *.parquet
 *.csv
+/metrics.json
+output.txt
