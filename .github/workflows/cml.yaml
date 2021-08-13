@@ -42,6 +42,7 @@ jobs:
           pip install -r requirements.txt
           python -m spacy download en_core_web_sm
           pip install swifter
+          pip install stopwords
           dvc repro
           dvc push
           
