@@ -8,18 +8,21 @@ stages:
   prprocessing:
     cmd: python process.py
     deps:
+      - process.py
       - ./raw.csv
     outs:
       - ./processed.csv
   vectorization:
     cmd: python vectorize.py 
     deps:
+      - vectorize.py
       - ./processed.csv
     outs: 
       - ./vectorized.parquet
   train_model:
     cmd: python train.py 
     deps:
+      - train.py
       - ./vectorized.parquet
     outs:
       - ./clf.pkl
@@ -27,7 +30,8 @@ stages:
   validation_metrics:
     cmd: python validation.py
     deps:
+      - validation.py
       - ./vectorized_valid.parquet
       - ./clf.pkl
     outs:
-      - ./metrics.txt
+      - ./metrics.json
