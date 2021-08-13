@@ -49,7 +49,7 @@ jobs:
           pip install stopwords
           dvc repro
           dvc push
-          
+          git status
           echo "## Model metrics" > report.md
           dvc metrics show >> report.md
           cml-send-comment report.md
