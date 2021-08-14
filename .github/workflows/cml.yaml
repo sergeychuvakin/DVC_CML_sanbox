@@ -49,9 +49,13 @@ jobs:
           pip install stopwords
           dvc repro
           dvc push
+          
+          git config --global user.email "sergeychuvakin1@mail.ru"
+          git config --global user.name "DVC BOT"
           git add dvc.lock
           git commit -m 'CML BOT commit of dvc.lock'
           git push
+          
           echo "## Model metrics" > report.md
           dvc metrics show >> report.md
           cml-send-comment report.md
