@@ -47,6 +47,7 @@ jobs:
           python -m spacy download en_core_web_sm
           pip install swifter
           pip install stopwords
+          dvc pull 
           dvc repro
           dvc push
           
