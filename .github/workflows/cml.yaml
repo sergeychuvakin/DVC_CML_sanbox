@@ -47,15 +47,18 @@ jobs:
           python -m spacy download en_core_web_sm
           pip install swifter
           pip install stopwords
+          echo "dvc pull"
           dvc pull 
-          
+          echo "dvc repro"
           status_command=`dvc repro`
+          echo $status_command
           
           if [[ $status_command == *"Data and pipelines are up to date"* ]]; 
               then
-                  exit 0
-              elif [[ $status_command == *"send your updates to remote storage"* ]];
+                exit 0
+          elif [[ $status_command == *"send your updates to remote storage"* ]];
               then
+                  echo "main loop"
                   dvc push
                   git config --global user.email "sergeychuvakin1@mail.ru"
                   git config --global user.name "DVC BOT"
