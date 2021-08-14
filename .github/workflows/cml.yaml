@@ -53,10 +53,10 @@ jobs:
           status_command=`dvc repro`
           echo $status_command
           
-          if [[ $status_command == *"Data and pipelines are up to date"* ]]; 
+          if [ $status_command == *"Data and pipelines are up to date"* ]; 
               then
                 exit 0
-          elif [[ $status_command == *"send your updates to remote storage"* ]];
+          elif [ $status_command == *"send your updates to remote storage"* ];
               then
                   echo "main loop"
                   dvc push
