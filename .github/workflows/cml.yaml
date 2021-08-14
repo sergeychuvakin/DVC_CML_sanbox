@@ -53,20 +53,18 @@ jobs:
           status_command=`dvc repro`
           echo $status_command
           
-          if [ $status_command == *"Data and pipelines are up to date"* ]; 
-              then
-                exit 0
-          elif [ $status_command == *"send your updates to remote storage"* ];
-              then
-                  echo "main loop"
-                  dvc push
-                  git config --global user.email "sergeychuvakin1@mail.ru"
-                  git config --global user.name "DVC BOT"
-                  git add dvc.lock
-                  git commit -m 'CML BOT commit of dvc.lock'
-                  git push
-                  echo "## Model metrics" > report.md
-                  dvc metrics show >> report.md
+          if $status_command == *"Data and pipelines are up to date"*; then
+              exit 0
+          elif $status_command == *"send your updates to remote storage"*; then
+                echo "main loop"
+                dvc push
+                git config --global user.email "sergeychuvakin1@mail.ru"
+                git config --global user.name "DVC BOT"
+                git add dvc.lock
+                git commit -m 'CML BOT commit of dvc.lock'
+                git push
+                echo "## Model metrics" > report.md
+                dvc metrics show >> report.md
               else
                 exit 1
           fi
