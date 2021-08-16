@@ -49,8 +49,8 @@ jobs:
           python -m spacy download en_core_web_sm
           
           echo "DVC work"
-          dvc pull  
-          dvc status
+          #dvc pull  
+          #dvc status
           echo "DVC repro"
           status_command=`dvc repro`
           echo $status_command
