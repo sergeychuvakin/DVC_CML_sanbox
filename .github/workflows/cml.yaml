@@ -31,7 +31,7 @@ jobs:
     needs: [deploy-runner]
     runs-on: [self-hosted, cml-runner]
     container:
-      image: docker://dvcorg/cml:0-dvc2-base1
+      image: docker://dvcorg/cml:0-dvc1-base1
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
