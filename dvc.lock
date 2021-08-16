@@ -17,54 +17,54 @@ stages:
       md5: 6e0a6b956165a70746f2360f93bc62de
       size: 3276673
     - path: process.py
-      md5: e69aa2620f7874d216fc84921b0358ca
+      md5: 861a3906c1ca3c07335682566c9e9721
       size: 997
     outs:
     - path: ./processed.csv
-      md5: 7c9c8bc06ef881df40cdd5e8bced0a76
-      size: 1308994
+      md5: d370f7151b87ce62784e7b00bd266074
+      size: 1283950
   vectorization:
     cmd: python vectorize.py
     deps:
     - path: ./processed.csv
-      md5: 7c9c8bc06ef881df40cdd5e8bced0a76
-      size: 1308994
+      md5: d370f7151b87ce62784e7b00bd266074
+      size: 1283950
     - path: vectorize.py
       md5: 25f440315ae5a7ee4081569b8bf62f7b
       size: 575
     outs:
     - path: ./vectorized.parquet
-      md5: a2e97b18433e2cd88af2f9fe219c7e78
-      size: 1058710
+      md5: 6189e42c0332c3bdd1a36d6d6ca3efec
+      size: 1027883
   train_model:
     cmd: python train.py
     deps:
     - path: ./vectorized.parquet
-      md5: a2e97b18433e2cd88af2f9fe219c7e78
-      size: 1058710
+      md5: 6189e42c0332c3bdd1a36d6d6ca3efec
+      size: 1027883
     - path: train.py
       md5: cd36140965930b52e57815f1089d45c4
       size: 600
     outs:
     - path: ./clf.pkl
-      md5: 47a505a60aac7faed0373e1c3e78f840
-      size: 196082
+      md5: 91d58db980cab73086440cd68179f6d7
+      size: 191762
     - path: ./vectorized_valid.parquet
-      md5: ebc7bf5869f7bac3a53c7f6f01a7231a
-      size: 269466
+      md5: 3b0c8ad882b3098020a82c86b596bbc1
+      size: 271559
   validation_metrics:
     cmd: python validation.py
     deps:
     - path: ./clf.pkl
-      md5: 47a505a60aac7faed0373e1c3e78f840
-      size: 196082
+      md5: 91d58db980cab73086440cd68179f6d7
+      size: 191762
     - path: ./vectorized_valid.parquet
-      md5: ebc7bf5869f7bac3a53c7f6f01a7231a
-      size: 269466
+      md5: 3b0c8ad882b3098020a82c86b596bbc1
+      size: 271559
     - path: validation.py
       md5: f42cb28c1b5de9c37f9017d4022c9b9b
       size: 652
     outs:
     - path: metrics.json
-      md5: c46b352efac725d0519b64674932167d
-      size: 112
+      md5: d37433e63489b7bb589df57ded1afb6a
+      size: 111
