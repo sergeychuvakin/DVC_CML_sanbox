@@ -71,6 +71,8 @@ jobs:
                   git add dvc.lock metrics.json
                   echo "git commit -a "
                   git commit -m 'CML BOT commit of dvc.lock'
+                  echo "git pull"
+                  git pull
                   echo "git push"
                   git push
                   echo "dvc metrics"
