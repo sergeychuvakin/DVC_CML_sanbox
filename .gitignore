@@ -135,3 +135,5 @@ dmypy.json
 *.csv
 /metrics.json
 output.txt
+report.md
+example.sh
