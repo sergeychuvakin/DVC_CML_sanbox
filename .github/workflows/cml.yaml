@@ -79,5 +79,6 @@ jobs:
               exit 1
           fi
           echo "finnaly done.."
+          echo "some minor change"
           cml-send-comment report.md
         shell: bash
