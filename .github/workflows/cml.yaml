@@ -52,7 +52,6 @@ jobs:
           dvc pull  
           echo "DVC repro"
           status_command=`dvc repro`
-          echo "######"
           echo $status_command
           echo "## Model metrics" > report.md
 
