@@ -50,6 +50,7 @@ jobs:
           
           echo "DVC work"
           dvc pull  
+          dvc status
           echo "DVC repro"
           status_command=`dvc repro`
           echo $status_command
