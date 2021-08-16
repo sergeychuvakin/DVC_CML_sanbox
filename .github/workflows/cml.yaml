@@ -63,17 +63,21 @@ jobs:
               then
                   echo "dvc push"
                   dvc push
+                  echo "git configs"
                   git config --global user.email "sergeychuvakin1@mail.ru"
                   git config --global user.name "DVC BOT"
+                  echo "git add dvc.lock"
                   git add dvc.lock
+                  echo "git commit -a "
                   git commit -m 'CML BOT commit of dvc.lock'
+                  echo "git push"
                   git push
-                  
+                  echo "dvc metrics"
                   dvc metrics diff --show-md >> report.md
               else
               echo "smth went wrong, add more descriptive log.."
               exit 1
           fi
-          
+          echo "finnaly done.."
           cml-send-comment report.md
         shell: bash
