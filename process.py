@@ -34,6 +34,6 @@ def preprocess_raw_text(sentence):
     mytokens = " ".join(mytokens)
     return mytokens
 
-df = df.sample(1000).reset_index(drop=True)
+df = df.iloc[:1000,].reset_index(drop=True)
 df.loc[:, "text"] = df.text.swifter.progress_bar(True).apply(preprocess_raw_text)
 df.to_csv(config.TRAIN_PROCESSED)
