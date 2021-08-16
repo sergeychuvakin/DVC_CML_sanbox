@@ -4,67 +4,67 @@ stages:
     cmd: python get_data.py
     deps:
     - path: get_data.py
-      md5: e5b0eada70bc5bb048c5bd8abc7515d4
-      size: 300
+      md5: 0cdfc16d366f2c82fde7fb6a9e0dbd20
+      size: 277
     outs:
     - path: ./raw.csv
-      md5: 1d202445c663377c67ff65c8ea6ef868
-      size: 3807906
+      md5: 83ab97e270faa7845a6ab08c2ea8d1cc
+      size: 2918018
   prprocessing:
     cmd: python process.py
     deps:
     - path: ./raw.csv
-      md5: 1d202445c663377c67ff65c8ea6ef868
-      size: 3807906
+      md5: 83ab97e270faa7845a6ab08c2ea8d1cc
+      size: 2918018
     - path: process.py
       md5: e69aa2620f7874d216fc84921b0358ca
       size: 997
     outs:
     - path: ./processed.csv
-      md5: 37863b9e0ed7c7c5ed25ccb5eaa6b6fa
-      size: 1199688
+      md5: b5592fadd5ee4c61644096eceae5d0b3
+      size: 1330986
   vectorization:
     cmd: python vectorize.py
     deps:
     - path: ./processed.csv
-      md5: 37863b9e0ed7c7c5ed25ccb5eaa6b6fa
-      size: 1199688
+      md5: b5592fadd5ee4c61644096eceae5d0b3
+      size: 1330986
     - path: vectorize.py
       md5: 25f440315ae5a7ee4081569b8bf62f7b
       size: 575
     outs:
     - path: ./vectorized.parquet
-      md5: 356b65625b983552fc3cb4b6cccc794a
-      size: 1048573
+      md5: fcab5d76ea1b90a652dce257e53bf4af
+      size: 1051029
   train_model:
     cmd: python train.py
     deps:
     - path: ./vectorized.parquet
-      md5: 356b65625b983552fc3cb4b6cccc794a
-      size: 1048573
+      md5: fcab5d76ea1b90a652dce257e53bf4af
+      size: 1051029
     - path: train.py
       md5: cd36140965930b52e57815f1089d45c4
       size: 600
     outs:
     - path: ./clf.pkl
-      md5: cd87405e342fdd910a90fd167b391d11
-      size: 195650
+      md5: bb3416bbb84c1b3bcc4cb48d663b717c
+      size: 193058
     - path: ./vectorized_valid.parquet
-      md5: 5964f0a8f3e37af52f58dccceb5ec4d5
-      size: 268032
+      md5: 173be0955bef81b8ba26759b1f90d496
+      size: 265870
   validation_metrics:
     cmd: python validation.py
     deps:
     - path: ./clf.pkl
-      md5: cd87405e342fdd910a90fd167b391d11
-      size: 195650
+      md5: bb3416bbb84c1b3bcc4cb48d663b717c
+      size: 193058
     - path: ./vectorized_valid.parquet
-      md5: 5964f0a8f3e37af52f58dccceb5ec4d5
-      size: 268032
+      md5: 173be0955bef81b8ba26759b1f90d496
+      size: 265870
     - path: validation.py
       md5: f42cb28c1b5de9c37f9017d4022c9b9b
       size: 652
     outs:
     - path: metrics.json
-      md5: 2239ba75fef2d55373855a1bd8d2d18a
+      md5: edde2810230eac26f00157e12c7510da
       size: 111
