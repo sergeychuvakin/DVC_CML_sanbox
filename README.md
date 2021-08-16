@@ -13,3 +13,5 @@ output.txt
 /metrics.json
 3) git dvc.lock
 dvc metrics diff > output.txt
+
+4) metrics should be in git
