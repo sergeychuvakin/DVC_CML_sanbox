@@ -137,3 +137,4 @@ dmypy.json
 output.txt
 report.md
 example.sh
+/metrics.json
