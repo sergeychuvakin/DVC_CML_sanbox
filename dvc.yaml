@@ -35,4 +35,4 @@ stages:
       - ./clf.pkl
     metrics:
       - metrics.json:
-          cache: false
+          cache: true
