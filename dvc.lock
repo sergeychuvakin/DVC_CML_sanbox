@@ -47,45 +47,24 @@ stages:
       size: 601
     outs:
     - path: ./clf.pkl
-<<<<<<< HEAD
-      md5: 150087417c1ff980e36214634f2688ed
-      size: 532610
-    - path: ./vectorized_valid.parquet
-      md5: fabe9542d91f01be99873bde01d9d49c
-      size: 266650
-=======
       md5: 2abf0baad5f00ebfacc1ce82862bfac3
       size: 545138
     - path: ./vectorized_valid.parquet
       md5: ffee63527c4f7d1fa0fe29b4fddfee71
       size: 256203
->>>>>>> 31abc548311e10f65d9021bb0cb4951b8325b1a1
   validation_metrics:
     cmd: python validation.py
     deps:
     - path: ./clf.pkl
-<<<<<<< HEAD
-      md5: 150087417c1ff980e36214634f2688ed
-      size: 532610
-    - path: ./vectorized_valid.parquet
-      md5: fabe9542d91f01be99873bde01d9d49c
-      size: 266650
-=======
       md5: 2abf0baad5f00ebfacc1ce82862bfac3
       size: 545138
     - path: ./vectorized_valid.parquet
       md5: ffee63527c4f7d1fa0fe29b4fddfee71
       size: 256203
->>>>>>> 31abc548311e10f65d9021bb0cb4951b8325b1a1
     - path: validation.py
       md5: f42cb28c1b5de9c37f9017d4022c9b9b
       size: 652
     outs:
     - path: metrics.json
-<<<<<<< HEAD
-      md5: cc6de7698248d0297cc1c1743bc76d44
-      size: 110
-=======
       md5: bde42eb295709a96d6aaa3e57f647783
       size: 109
->>>>>>> 31abc548311e10f65d9021bb0cb4951b8325b1a1
