@@ -76,7 +76,7 @@ jobs:
                   echo "git push"
                   git push
                   echo "dvc metrics"
-                  dvc metrics diff --show-md >> report.md
+                  dvc metrics diff >> report.md
                   dvc metrics show >> report.md
               else
               echo "smth went wrong, add more descriptive log.."
