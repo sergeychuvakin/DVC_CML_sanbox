@@ -68,7 +68,7 @@ jobs:
                   git config --global user.email "sergeychuvakin1@mail.ru"
                   git config --global user.name "DVC BOT"
                   echo "git add dvc.lock"
-                  git add dvc.lock metrics.json
+                  git add dvc.lock
                   echo "git commit -a "
                   git commit -m 'CML BOT commit of dvc.lock'
                   echo "git pull"
