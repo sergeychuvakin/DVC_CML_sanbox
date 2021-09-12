@@ -22,7 +22,7 @@ jobs:
               --token=$PERSONAL_ACCESS_TOKEN \
               --cloud aws \
               --cloud-region us-west-1 \
-              --cloud-type=t2.large \
+              --cloud-type=t2.xlarge \
               --labels=cml-runner \
               --idle-timeout 30
     
