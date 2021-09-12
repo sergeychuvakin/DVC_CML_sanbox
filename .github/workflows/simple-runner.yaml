@@ -19,6 +19,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install dvc==2.3.0
+          pip install 'dvc[s3]'
           python -m spacy download en_core_web_sm
           dvc pull
           dvc repro
