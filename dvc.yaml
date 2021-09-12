@@ -5,7 +5,7 @@ stages:
       - get_data.py 
     outs:
       - ./raw.csv
-  prprocessing:
+  preprocessing:
     cmd: python process.py
     deps:
       - process.py
