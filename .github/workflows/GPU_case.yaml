@@ -56,7 +56,7 @@ jobs:
           echo "DVC repro"
           dvc repro
           echo "# GPU info" > report.md
-          cat nvidia-smi >> report.md
+          cat gpu_info.txt >> report.md
           echo "# Model metrics" >> report.md
           dvc metrics diff --show-md >> report.md
           dvc metrics show --show-md >> report.md
