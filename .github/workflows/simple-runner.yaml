@@ -1,0 +1,32 @@
+on:
+  # Trigger the workflow on push or pull request
+  push:
+    branches:
+      - simple-runner
+
+jobs:
+  deploy-runner:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: iterative/setup-cml@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - name: CML
+        env:
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.REPO_TOKEN }}
+        run: |
+          pip install -r requirements.txt
+          python -m spacy download en_core_web_sm
+          dvc pull
+          dvc repro
+          
+          echo "Hello from CML" > report.md
+          echo "Model Metrics" >> report.md
+          cat metrics.json >> report.md
+          dvc metrics diff --show-md >> report.md
+          dvc metrics show --show-md >> report.md
+          cml-send-comment report.md
+        shell: bash
+    
