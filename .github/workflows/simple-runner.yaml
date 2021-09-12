@@ -9,7 +9,6 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: iterative/setup-cml@v1
-      - uses: iterative/setup-dvc@v2
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -19,6 +18,7 @@ jobs:
           PERSONAL_ACCESS_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: |
           pip install -r requirements.txt
+          pip install dvc==2.3.0
           python -m spacy download en_core_web_sm
           dvc pull
           dvc repro
