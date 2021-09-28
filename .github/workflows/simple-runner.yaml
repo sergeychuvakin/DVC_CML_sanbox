@@ -27,9 +27,7 @@ jobs:
           dvc pull
           dvc repro
           
-          echo "Hello from CML" > report.md
-          echo "Model Metrics" >> report.md
-          cat metrics.json >> report.md
+          echo "# Model Metrics" > report.md
           dvc metrics diff --show-md >> report.md
           dvc metrics show --show-md >> report.md
           cml-send-comment report.md
