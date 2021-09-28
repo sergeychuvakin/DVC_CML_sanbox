@@ -9,13 +9,13 @@ import pickle
 
 config = Config()
 
-df = pd.read_parquet(config.TRAIN_VALID)
+df = pd.read_parquet(config.TRAIN_VALID_2)
 with open("clf.pkl", "rb") as f:
     clf = pickle.load(f)
 
 y_pred = clf.predict(np.stack(df.texts))
 
-with open("metrics.json", "w") as f:
+with open("metrics2.json", "w") as f:
     json.dump(
         {
             "f1_score (macro)": f1_score(df.labels, y_pred, average="macro"),

@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 config = Config()
 vectorizer = TfidfVectorizer(max_features=3000)
 
-df = pd.read_csv(config.TRAIN_PROCESSED)
+df = pd.read_csv(config.TRAIN_PROCESSED_2)
 vectorizer.fit(df.text)
 
 df.loc[:, "vecs"] = (
@@ -22,4 +22,4 @@ df.loc[:, "vecs"] = (
             .tolist()[0])
                     )
 
-df[["vecs", "label"]].rename(columns={"vecs": "texts"}).to_parquet(config.TRAIN_VECTORIZED)
+df[["vecs", "label"]].rename(columns={"vecs": "texts"}).to_parquet(config.TRAIN_VECTORIZED_2)

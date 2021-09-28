@@ -81,3 +81,71 @@ stages:
     - path: ./processed.csv
       md5: d370f7151b87ce62784e7b00bd266074
       size: 1283950
+  get_data_2:
+    cmd: python get_data2.py
+    deps:
+    - path: get_data2.py
+      md5: 92b49ca20596a62c3b488bc127e5e6da
+      size: 279
+    outs:
+    - path: ./raw2.csv
+      md5: 6e0a6b956165a70746f2360f93bc62de
+      size: 3276673
+  preprocessing_2:
+    cmd: python process2.py
+    deps:
+    - path: ./raw2.csv
+      md5: 6e0a6b956165a70746f2360f93bc62de
+      size: 3276673
+    - path: process2.py
+      md5: e43dce16f43aca5f9c11c2a769a99d32
+      size: 1001
+    outs:
+    - path: ./processed2.csv
+      md5: d370f7151b87ce62784e7b00bd266074
+      size: 1283950
+  vectorization_2:
+    cmd: python vectorize2.py
+    deps:
+    - path: ./processed2.csv
+      md5: d370f7151b87ce62784e7b00bd266074
+      size: 1283950
+    - path: vectorize2.py
+      md5: 92e08690c2f045619f051fe89a88b464
+      size: 579
+    outs:
+    - path: ./vectorized2.parquet
+      md5: 111680d6ca7f6fee21fd06e14b6499de
+      size: 1027883
+  train_model_2:
+    cmd: python train2.py
+    deps:
+    - path: ./vectorized2.parquet
+      md5: 111680d6ca7f6fee21fd06e14b6499de
+      size: 1027883
+    - path: train2.py
+      md5: 22d2eeed9531d95ee8384ce9e56fe3c3
+      size: 606
+    outs:
+    - path: ./clf2.pkl
+      md5: ca7ad5dab5ab7e1cb470dbfdf0bdd927
+      size: 704613
+    - path: ./vectorized_valid2.parquet
+      md5: 7a8d62ebf81b82c115290bc29faaa14b
+      size: 256187
+  validation_metrics_2:
+    cmd: python validation2.py
+    deps:
+    - path: ./clf2.pkl
+      md5: ca7ad5dab5ab7e1cb470dbfdf0bdd927
+      size: 704613
+    - path: ./vectorized_valid2.parquet
+      md5: 7a8d62ebf81b82c115290bc29faaa14b
+      size: 256187
+    - path: validation2.py
+      md5: 22c36b6289b5cf0efa76b2d797fbfe55
+      size: 655
+    outs:
+    - path: metrics2.json
+      md5: d15110f1351a5eb0f0ccf5db1d3f6d81
+      size: 110

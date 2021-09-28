@@ -7,4 +7,4 @@ config = Config()
 
 data = fetch_20newsgroups(subset='train')
 df = pd.DataFrame({"text": data.data, "label": data.target}).iloc[:1600,]
-df.to_csv(config.TRAIN_RAW)
+df.to_csv(config.TRAIN_RAW_2)

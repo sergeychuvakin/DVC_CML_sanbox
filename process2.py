@@ -9,7 +9,7 @@ import string
 
 
 config = Config()
-df = pd.read_csv(config.TRAIN_RAW)
+df = pd.read_csv(config.TRAIN_RAW_2)
 
 
 nlp = spacy.load("en_core_web_sm")
@@ -36,4 +36,4 @@ def preprocess_raw_text(sentence):
 
 df = df.iloc[:1000,].reset_index(drop=True)
 df.loc[:, "text"] = df.text.swifter.progress_bar(True).apply(preprocess_raw_text)
-df.to_csv(config.TRAIN_PROCESSED)
+df.to_csv(config.TRAIN_PROCESSED_2)

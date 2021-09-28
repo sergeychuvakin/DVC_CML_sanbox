@@ -36,3 +36,40 @@ stages:
     metrics:
       - metrics.json:
           cache: true
+  get_data_2:
+    cmd: python get_data2.py 
+    deps: 
+      - get_data2.py 
+    outs:
+      - ./raw2.csv
+  preprocessing_2:
+    cmd: python process.py
+    deps:
+      - process.py
+      - ./raw2.csv
+    outs:
+      - ./processed2.csv
+  vectorization_2:
+    cmd: python vectorize.py 
+    deps:
+      - vectorize.py
+      - ./processed2.csv
+    outs: 
+      - ./vectorized2.parquet
+  train_model_2:
+    cmd: python train.py 
+    deps:
+      - train.py
+      - ./vectorized2.parquet
+    outs:
+      - ./clf2.pkl
+      - ./vectorized_valid2.parquet
+  validation_metrics_2:
+    cmd: python validation.py
+    deps:
+      - validation.py
+      - ./vectorized_valid2.parquet
+      - ./clf2.pkl
+    metrics:
+      - metrics2.json:
+          cache: true
