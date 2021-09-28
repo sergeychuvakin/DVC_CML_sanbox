@@ -1,0 +1,35 @@
+on:
+  # Trigger the workflow on push or pull request
+  push:
+    branches:
+      - simple-runner
+
+jobs:
+  github-runner:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: iterative/setup-cml@v1
+      - uses: actions/checkout@v2
+      - uses: iterative/setup-dvc@v1
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - name: CML
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          pip install -r requirements.txt
+          pip install dvc==2.3.0
+          pip install 'dvc[s3]'
+          python -m spacy download en_core_web_sm
+          dvc pull
+          dvc repro
+          
+          echo "# Model Metrics" > report.md
+          dvc metrics diff --show-md >> report.md
+          dvc metrics show --show-md >> report.md
+          cml-send-comment report.md
+        shell: bash
+    
