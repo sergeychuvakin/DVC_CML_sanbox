@@ -138,3 +138,5 @@ output.txt
 report.md
 example.sh
 /metrics.json
+*.csv
+*.ipynb
