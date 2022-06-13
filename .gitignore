@@ -140,3 +140,4 @@ example.sh
 /metrics.json
 *.csv
 *.ipynb
+mlruns
