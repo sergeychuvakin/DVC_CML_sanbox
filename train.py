@@ -18,10 +18,12 @@ df = pd.read_parquet(config.TRAIN_VECTORIZED)
 
 X_train, X_test, y_train, y_test = train_test_split(np.stack(df.texts), df.label)
 
-max_depth = 6
-random_state = 14
+max_depth = 7
+random_state = 10
+# run_id = mlflow.create_experiment("auna")
+experiment = mlflow.get_experiment_by_name("auna")
 
-with mlflow.start_run():
+with mlflow.start_run(experiment_id=experiment.experiment_id, run_name= f"run_{'ouf'}"):
 
     clf = RandomForestClassifier(max_depth=max_depth, random_state=random_state)
     clf.fit(X_train, y_train)
@@ -33,16 +35,12 @@ with mlflow.start_run():
     tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
     print(tracking_url_type_store)
 
-    # Model registry does not work with file store
-    if tracking_url_type_store != "file":
-
-        # Register the model
-        # There are other ways to use the Model Registry, which depends on the use case,
-        # please refer to the doc for more information:
-        # https://mlflow.org/docs/latest/model-registry.html#api-workflow
-        mlflow.sklearn.log_model(clf, "model", registered_model_name="random forest classifier")
-    else:
-        mlflow.sklearn.log_model(clf, "model")
+    # mlflow.sklearn.log_model(
+    #     sk_model=clf,
+    #     artifact_path="sklearn-model",
+    #     registered_model_name="sk-learn-random-forest-reg-model"
+    # )
+    mlflow.sklearn.log_model(clf, "model")
 
 
 

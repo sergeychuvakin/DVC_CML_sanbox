@@ -133,6 +133,7 @@ dmypy.json
 *.pkl
 *.parquet
 *.csv
+*.txt
 
 output.txt
 report.md
@@ -141,3 +142,5 @@ example.sh
 *.csv
 *.ipynb
 mlruns
+.vscode
+.DS_Store
