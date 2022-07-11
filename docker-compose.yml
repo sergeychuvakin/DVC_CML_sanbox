@@ -1,5 +1,4 @@
-
-version: '3.9'
+version: '3.7'
 
 services:
   # db:
@@ -32,6 +31,7 @@ services:
     volumes:
       - "./mysql:/var/lib/mysql"
     network_mode: host
+  
   train_model:
     container_name: trianing_mlflow
     build: 
@@ -40,6 +40,34 @@ services:
     command: dvc repro
     links:
       - "mflow_models:mlflow_models"
-    volumes:
-      - "./mysql:/var/lib/mysql"
+    # volumes:
+    #   - "./mysql:/var/lib/mysql"
     network_mode: host
+    depends_on:
+        - mlflow_server
+
+  mlflow_server:
+    restart: always
+    image: imranq2/mlflow_server
+    container_name: mlflow_server
+    network_mode: host
+    expose:
+        - 5000
+    ports:
+        - 5000:5000
+    environment:
+        # - BACKEND=mysql+pymysql://${DB_USER}:${DB_PW}@db:${DB_PORT}/${DB_NAME}
+        - BACKEND=mysql+pymysql://serge:passpass@localhost:3306/mlflow_models
+        - ARTIFACTS=/mlruns
+    volumes:
+        - ./mlruns:/mlruns
+    command: 
+        - sh    # (sh allows for var substitution of BACKEND and ARTIFACTS)
+        - -c
+        - mlflow server 
+            --port 5000
+            --host 127.0.0.1
+            --backend-store-uri $${BACKEND} 
+            --default-artifact-root $${ARTIFACTS}
+    depends_on:
+        - mflow_models_db
