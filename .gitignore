@@ -144,3 +144,5 @@ example.sh
 mlruns
 .vscode
 .DS_Store
+mysql
+db

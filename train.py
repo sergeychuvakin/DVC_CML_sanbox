@@ -6,8 +6,11 @@ from config import Config
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
+#  mlflow tracking
 import mlflow
 import mlflow.sklearn
+from mlflow.models.signature import infer_signature
+
 from urllib.parse import urlparse
 
 import pickle
@@ -20,26 +23,24 @@ X_train, X_test, y_train, y_test = train_test_split(np.stack(df.texts), df.label
 
 max_depth = 7
 random_state = 10
+
+## mlflow configs
 # run_id = mlflow.create_experiment("auna")
-experiment = mlflow.get_experiment_by_name("auna")
+# experiment = mlflow.get_experiment_by_name("auna")
 
-with mlflow.start_run(experiment_id=experiment.experiment_id, run_name= f"run_{'ouf'}"):
+print(urlparse(mlflow.get_tracking_uri()).scheme)
+mlflow.set_tracking_uri(config.CONNECTION_STRING)
+print(mlflow.get_tracking_uri()) # This checks if it was set properly
 
+with mlflow.start_run(run_name= f"run_{'ouf'}"):
+
+    # train
     clf = RandomForestClassifier(max_depth=max_depth, random_state=random_state)
     clf.fit(X_train, y_train)
     
-    
+    # registrer metrics
     mlflow.log_param("max_depth", max_depth)
     mlflow.log_param("random_state", random_state)
-
-    tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
-    print(tracking_url_type_store)
-
-    # mlflow.sklearn.log_model(
-    #     sk_model=clf,
-    #     artifact_path="sklearn-model",
-    #     registered_model_name="sk-learn-random-forest-reg-model"
-    # )
     mlflow.sklearn.log_model(clf, "model")
 
 

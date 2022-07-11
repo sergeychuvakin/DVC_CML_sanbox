@@ -1,0 +1,9 @@
+*.csv
+*.pkl
+*.json
+*.parquet
+week2
+mlruns
+env
+mysql
+db
