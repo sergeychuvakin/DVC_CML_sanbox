@@ -1,21 +1,6 @@
 version: '3.7'
 
 services:
-  # db:
-  #   image: postgres
-  #   container_name: postgres
-  #   restart: always
-  #   ports:
-  #     - "54320:5432"
-  #   # networks:
-  #   #   - postgres
-  #   environment:
-  #     POSTGRES_USER: serge
-  #     POSTGRES_PASSWORD: passpass
-  #     POSTGRES_DB: mlruns
-  #     PGDATA: /data/postgres
-  #   volumes:
-  #     - ./db:/data/postgres
   mysql_db:
     container_name: mysql_db
     image: mysql
@@ -41,8 +26,6 @@ services:
     command: dvc repro
     links:
       - "mflow_models:mlflow_models"
-    # volumes:
-    #   - "./mysql:/var/lib/mysql"
     networks:
       - net
     depends_on:
