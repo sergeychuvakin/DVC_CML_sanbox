@@ -3,8 +3,7 @@ FROM python:3.9
 WORKDIR /app
 
 RUN apt-get update -y && apt-get upgrade -y && \
-    python -m pip install --upgrade pip && \
-    pip install dvc==2.11.0
+    python -m pip install --upgrade pip &&
 
 COPY ./endpoint.py /app
 

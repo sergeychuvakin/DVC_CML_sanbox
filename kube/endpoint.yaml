@@ -2,24 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-deployment
+  name: train-model-deployment
   labels:
-    app: webapp
+    app: train-model
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webapp
+      app: train-model
   template:
     metadata:
       labels:
-        app: webapp
+        app: train-model
     spec:
       containers:
-      - name: web
-        image: sergeychuvakin/simple_endpoint:v0.1
-        ports:
-        - containerPort: 8000
+      - name: train-model
+        image: sergeychuvakin/mlflow_simple_example:v0.1
 
 --- 
 
@@ -28,11 +26,11 @@ kind: Service
 metadata:
   name: webapp-service
 spec:
-  type: NodePort # ClusterIP is default
+  type: LoadBalancer # NodePort # ClusterIP (default)
   selector:
     app: webapp
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-      nodePort: 30100
+      # nodePort: 30100
