@@ -12,6 +12,7 @@
 - `kubectl get hpa` <br>
 - `kubectl get svc` or `kubectl get svc -o wide`<br>
 - `kubectl get namespaces`
+- `kubectl get pvc`
 
 ### kubectl cleaning with awk
 
@@ -35,3 +36,13 @@
 `minikube stop` <br>
 `minikube delete`
 
+
+## frequent commands to clean all 
+
+kubectl get deploy | awk 'NR>1{print $1}' | xargs kubectl delete deploy 
+
+kubectl get pvc | awk 'NR>1{print $1}' | xargs kubectl delete pvc 
+
+kubectl get pv | awk 'NR>1{print $1}' | xargs kubectl delete pv
+
+kubectl get svc | awk 'NR>1{print $1}' | xargs kubectl delete svc
