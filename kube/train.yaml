@@ -1,0 +1,21 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: train-model-deployment
+  labels:
+    app: train-model
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: train-model
+  template:
+    metadata:
+      labels:
+        app: train-model
+    spec:
+      containers:
+      - name: train-model
+        image: sergeychuvakin/mlflow_simple_example:v0.3
+        command: ["dvc", "repro"] 

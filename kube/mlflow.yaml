@@ -1,0 +1,59 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow-service
+  labels:
+    app: mlflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlflow ## how to get k8s know under certain deployment
+  template:
+    metadata:
+      labels:
+        app: mlflow ## what is shared between pods
+    spec:
+      # containers:
+      # - name: mlflow
+      #   image: # imranq2/mlflow_server # aahansingh/applied-mlops:mlflow-tracking-server-gcloud
+      #   ports:
+      #   - containerPort: 5000
+      #   env:
+      #     - name: BACKEND
+      #       value: mysql+pymysql://serge:passpass@db-sql:3306/mlflow_models
+      #     - name: ARTIFACTS
+      #       value: /mlruns
+        # command: ["mlflow", "server",  "--port", "5000", "--host", "0.0.0.0"] 
+        # args: ["--backend-store-uri", "$(BACKEND)", "--default-artifact-root", "$(ARTIFACTS)"]
+        # command: ["mlflow", "server",  "--port", "5000", "--host", "0.0.0.0"] 
+        # args: ["--backend-store-uri", "$(BACKEND)" ]
+      containers:
+      - name: mlflow-deployment
+        image: dkhundley/mlflow-server #:1.0.3
+        imagePullPolicy: Always
+        args:
+        - --host=0.0.0.0
+        - --port=5000
+        - --backend-store-uri=mysql+pymysql://serge:passpass@db-sql:3306/mlflow_models
+        - --default-artifact-root=/mlflow/
+        - --workers=2
+        ports:
+        - name: http
+          containerPort: 5000
+          protocol: TCP
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mlflow
+spec:
+  type: ClusterIP # LoadBalancer # NodePort # ClusterIP (default)
+  selector:
+    app: mlflow
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

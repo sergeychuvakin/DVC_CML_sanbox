@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-sql
+spec:
+  # type: NodePort # NodePort # ClusterIP (default), LoadBalancer
+  selector:
+    app: db-sql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-sql
+  labels:
+    app: db-sql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-sql ## how to get k8s know under certain deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: db-sql ## what is shared between pods
+    spec:
+      containers:
+      - name: db-sql
+        image: mysql:5.6
+        # imagePullPolicy: "IfNotPresent"
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistance-storage
+          mountPath: /var/lib/mysql
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: root
+          - name: MYSQL_DATABASE
+            value: mlflow_models
+          - name: MYSQL_ALLOW_EMPTY_PASSWORD
+            value: "yes"
+          - name: MYSQL_USER
+            value: serge
+          - name: MYSQL_PASSWORD
+            value: passpass
+      volumes:
+        - name: mysql-persistance-storage
+          persistentVolumeClaim:
+            claimName: db-sql-pvc # mysql-pv-data # db-sql-pvc
